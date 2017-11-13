@@ -1,0 +1,187 @@
+[(#REM)<!-- 
+
+TODO : séparrer les js et les css du modèle
+TODO : passer la debugbar en plugin
+
+-->]
+
+
+[(#SET{datas,#CONSOLE})]
+
+
+<script type="text/javascript">
+  function jcktraker_hide(){
+    var sections = document.getElementsByName('jcktraker-section');
+    var num_sections = sections.length;
+    for( var i=0; i<num_sections; i++ ){
+      sections[i].style.display = 'none';
+    }
+  }
+  function jcktraker_toogle( section, dispatcher ){
+    var section_blk = document.getElementById(section);
+    if( section_blk.style.display != 'block'){
+      jcktraker_hide();
+      section_blk.style.display = 'block';
+      dispatcher.style.fontWeight = 'bold';
+      dispatcher.style.backgroundColor = '#990000';
+      dispatcher.style.color = '#FFFFFF';
+    }
+    else {
+      section_blk.style.display = 'none';
+      dispatcher.style.fontWeight = "normal";
+      dispatcher.style.backgroundColor = '#000000';
+      dispatcher.style.color = '#FFFFFF';
+    }
+  }
+</script>
+<style type="text/css">
+.jcktraker-blue {
+    color:#8bb5eb;
+}
+.jcktraker-id {
+    color:#e8008d;
+}
+#jcktraker-box {
+  z-index:99999;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  max-height: 100%;
+  max-width: 75%;
+  margin: 0;
+  padding: 0;
+  -moz-border-radius: .4em;
+  -moz-box-shadow: 0 0 5em #000;
+  border-radius: .4em;
+  box-shadow: 0 0 5em #000;
+}
+#jcktraker-box * {
+  margin: 0;
+  padding: 0;
+  border-radius: .4em;
+}
+#jcktraker-box pre{
+  color:#000;
+  margin: 0 1em;
+  border: dotted thin #999;
+  border-radius: .4em;
+  box-shadow: 0 0 1em #000 inset;
+  padding: .4em .6em;
+  text-align: left;
+  background-color: #e4e4e4;
+  font-size: 1.2em;
+    white-space: pre;           /* CSS 2.0 */
+    white-space: pre-wrap;      /* CSS 2.1 */
+    white-space: pre-line;      /* CSS 3.0 */
+    white-space: -pre-wrap;     /* Opera 4-6 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -hp-pre-wrap;  /* HP Printers */
+    word-wrap: break-word;      /* IE 5+ */
+}
+#jcktraker-box p{
+  margin: 0 1em;
+}
+ul#jcktraker-menu li {
+  display: inline;
+  padding: 0 .4em;
+  line-height: 2em;
+}
+ul#jcktraker-menu li[onclick]:hover {
+  background: #990000;cursor: pointer;
+}
+ 
+#jcktraker-box div[name="jcktraker-section"] {
+  display: none;
+  white-space: pre-wrap;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 500px;
+  background: #111;
+  color: #fff;
+  opacity: .7;
+}
+#jcktraker-box div[name="jcktraker-section"]:hover {
+  opacity: 1;
+}
+
+#jcktraker-own {
+  padding-bottom: 30px;
+}
+#jcktraker-menu {
+  background: #000;
+  color: #fff;
+  white-space:nowrap;
+  text-align: right;
+  -moz-border-radius: .4em 0 0 0;
+  border-radius: .4em 0 0 0;
+}
+.jcktraker-backtrace {
+    background-color: #e4a504;
+}
+#jcktraker-box .jcktracker-preview {
+  max-height: 480px;
+  overflow-y: scroll;
+}
+</style>
+<div id="jcktraker-box">
+      <div id="jcktraker-post" name="jcktraker-section">
+        <strong>POST</strong>
+        <pre>#GET{datas/POST}</pre>
+      </div>
+    
+      <div id="jcktraker-files" name="jcktraker-section">
+        <strong>FILES</strong>
+        <pre>#GET{datas/FILES}</pre>
+      </div>
+      <div id="jcktraker-get" name="jcktraker-section">
+        <strong>GET</strong>
+        <pre>#GET{datas/GET}</pre>
+      </div>
+            
+     <div id="jcktraker-server" name="jcktraker-section">
+        <strong>SERVER</strong>
+        <div class="jcktracker-preview">
+        <pre>#GET{datas/SERVER}</pre>
+        </div>
+      </div> 
+
+      <div id="jcktraker-session" name="jcktraker-section">
+        <strong>SESSION</strong>
+        <div class="jcktracker-preview">
+        <pre>#GET{datas/SESSION}</pre> 
+        </div>
+      </div> 
+      <div id="jcktraker-cookie" name="jcktraker-section">
+        <strong>COOKIE</strong>
+        <div class="jcktracker-preview">
+          <pre>#GET{datas/COOKIE}</pre>
+        </div>
+      </div> 
+      <div id="jcktraker-request" name="jcktraker-section">
+        <strong>REQUEST</strong>
+        <div class="jcktracker-preview"><pre>#GET{datas/REQUEST}</pre></div>
+      </div>
+      <div id="jcktraker-own" name="jcktraker-section">
+        <strong>YOUR TRAC</strong>
+        <div class="jcktracker-preview">
+            #GET{datas/TRAC}
+        </div>
+      </div>
+      
+      <ul id="jcktraker-menu">
+        <li><strong>ToolBarDebug <span>v2.0</span></strong></li>
+        <li id="jacktraker_own_button" onclick="jcktraker_toogle('jcktraker-own', this)">TRAC(#GET{datas/TRAC_NUM})</li>
+        <li onclick="jcktraker_toogle('jcktraker-post', this)">POST(#GET{datas/POST_COUNT})</li>
+        <li onclick="jcktraker_toogle('jcktraker-files', this)">FILES(#GET{datas/FILES_COUNT})</li>
+        <li onclick="jcktraker_toogle('jcktraker-get', this)">GET(#GET{datas/GET_COUNT})</li>
+        <li onclick="jcktraker_toogle('jcktraker-server', this)">SERVER(#GET{datas/SERVER_COUNT} )</li>
+        <li onclick="jcktraker_toogle('jcktraker-session', this)">SESSION(#GET{datas/SESSION_COUNT})</li>
+        <li onclick="jcktraker_toogle('jcktraker-cookie', this)">COOKIE(#GET{datas/COOKIE_COUNT})</li>
+        <li onclick="jcktraker_toogle('jcktraker-request', this)">REQUEST(#GET{datas/REQUEST_COUNT})</li>
+      </ul>
+</div>
+
+#GET{datas/OUTPUT}
