@@ -16,70 +16,11 @@
 <div class="page">
 	
 	
-[(#ENV**|unserialize|d)]
+[(#ENV**|unserialize|d{1})]
 
 	
 	
-	<INCLURE{fond=inclure/header,home=oui} />
-	<INCLURE{fond=inclure/nav,env} />
 	
-	<div class="main">
-		<div class="wrapper hfeed">
-		<div class="content" id="content">
-			[<div class="chapo">(#DESCRIPTIF_SITE_SPIP)</div>]
-			<INCLURE{fond=inclure/recents,env,ajax} />
-		</div><!--.content-->
-		</div><!--.wrapper-->
-		
-		<div class="aside">
-			<INCLURE{fond=inclure/navsub} />
-			#FORMULAIRE_RECHERCHE
-			
-			[(#REM) Breves ]
-			<B_breves>
-			<div class="menu menu_breves">
-				<h2><:dernieres_breves:></h2>
-				<ul>
-					<BOUCLE_breves(BREVES) {!par date} {0,3}>
-					<li dir="#LANG_DIR" class="text-#LANG_LEFT">
-						[<small>(#DATE|affdate_jourcourt)</small>]
-						<h3><a href="#URL_BREVE">#TITRE</a></h3>
-						#INTRODUCTION
-					</li>
-					</BOUCLE_breves>
-				</ul>
-			</div>
-			</B_breves>
-			
-			[(#REM) Liens des forums ]
-			<B_forums_liens>
-			<div class="menu menu_comments">
-				<h2><:derniers_commentaires:></h2>
-				<ul>
-					<BOUCLE_forums_liens(FORUMS?) {plat} {!par date} {0,5}>
-					[<li>[(#NOM|sinon{...})&nbsp;: ]<a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>(#TEXTE|couper{80})</a></li>]
-					</BOUCLE_forums_liens>
-				</ul>
-			</div>
-			</B_forums_liens>
-			
-			[(#REM) Sur le Web ]
-			<B_syndic>
-			<div class="menu">
-				<h2><:nouveautes_web:></h2>
-				<ul>
-					<BOUCLE_syndic(SYNDIC_ARTICLES) {age<180} {!par date} {0,5}>
-					<li>[(#DATE|affdate_jourcourt) &ndash; ]<a href="#URL_ARTICLE"[ title="(#NOM_SITE|attribut_html|couper{80})"] class="spip_out">#TITRE</a></li>
-					</BOUCLE_syndic>
-				</ul>
-			</div>
-			</B_syndic>
-			
-			#FORMULAIRE_INSCRIPTION
-		</div><!--.aside-->
-	</div><!--.main-->
-	
-	<INCLURE{fond=inclure/footer,self=#SELF} />
 	
 </div><!--.page-->
 </body>
