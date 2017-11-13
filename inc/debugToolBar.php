@@ -120,6 +120,7 @@ class Debug {
  
 	private $OUTPUT = "";
 	private $TRAC_NUM = 0;
+  
 	private static $instance;
 	private $debug = false;
  
@@ -160,15 +161,15 @@ class Debug {
 	}
     
 	private function session_is(){
-                if(isset($_SESSION))
-                    return self::_color($_SESSION);
-    }
+      if(isset($_SESSION))
+          return self::_color($_SESSION);
+  }
 	
 	private function session_count(){
 		if(isset ($_SESSION)) {
-			return '$_SESSION('.count($_SESSION).')';
+			return 'SESSION('.count($_SESSION).')';
 		} else {
-			return '<del>$_SESSION</del>';}
+			return '<del>SESSION</del>';}
 	}
     /**
      * Elément clef, va renvoyer au template mustache les variables
@@ -193,7 +194,7 @@ class Debug {
             'TRAC'=> $this->OUTPUT,
             'TRAC_NUM'=>$this->TRAC_NUM,
             'SESSION'=> self::session_is(),
-            '$_SESSION_COUNT'=> self::session_count(),
+            'SESSION_COUNT'=> self::session_count(),
             'SERVER'=>self::_color($_SERVER),
             'SERVER_COUNT'=>count($_SERVER)
         );

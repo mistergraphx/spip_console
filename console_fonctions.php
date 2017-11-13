@@ -6,15 +6,10 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 
 function console_affichage_final($page){
 
-    // on regarde rapidement si la page a des classes player
-    //if (strpos($page, 'class="xspf_player"')===FALSE)
-    //    return $page;
-	$contexte = '' ;
-
-	$debugtoolbar = recuperer_fond('inclure/debugtoolbar', $contexte);
+	$debugtoolbar = recuperer_fond('inclure/debugtoolbar');
 	    
     $pos_body = strpos($page, '</body>');
-	//d($page);
+
     return substr_replace($page, $debugtoolbar, $pos_body, 0);
 
 }
